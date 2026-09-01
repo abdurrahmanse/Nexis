@@ -6,10 +6,12 @@ export const githubService = {
    * Domain service to get repository statistics.
    * Encapsulates the specific parameters for the main repository.
    */
-  async getRepositoryStats(): Promise<GithubRepositoryStats> {
-    // We hardcode the core repository we care about for the landing page
+  async getRepositoryStats(
+    owner: string = "steven-tey", 
+    repo: string = "dashboard"
+  ): Promise<GithubRepositoryStats> {
     try {
-      return await githubApi.getRepository("steven-tey", "dashboard");
+      return await githubApi.getRepository(owner, repo);
     } catch (error: any) {
       console.warn(`Failed to fetch GitHub repository stats: ${error?.message || "Unknown error"}. Falling back to 0 stars.`);
       return { stars: 0 };
