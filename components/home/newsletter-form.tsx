@@ -2,17 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useNewsletterStore } from "@/features/newsletter/context/newsletter.context";
 import { useSubscribeMutation } from "@/features/newsletter/hooks/use-subscribe-mutation";
 import { Loader2 } from "lucide-react";
-import React from "react";
 import React, { useState } from "react";
 
 export function NewsletterForm() {
-  const email = useNewsletterStore((state) => state.email);
-  const setEmail = useNewsletterStore((state) => state.setEmail);
-  const isSubscribed = useNewsletterStore((state) => state.isSubscribed);
-  const setSubscribed = useNewsletterStore((state) => state.setSubscribed);
   const [email, setEmail] = useState("");
   const [isSubscribed, setSubscribed] = useState(false);
 

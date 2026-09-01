@@ -3,22 +3,17 @@
 import { DemoModal } from "@/components/home/demo-modal";
 import Popover from "@/components/shared/popover";
 import Tooltip from "@/components/shared/tooltip";
-import { useUIStore } from "@/features/ui/store/ui.store";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 
 import { COMPONENT_GRID_CONTENT } from "@/data/content";
 
 export default function ComponentGrid() {
-  const setDemoModalOpen = useUIStore((s) => s.setDemoModalOpen);
-  const isPopoverOpen = useUIStore((s) => s.isPopoverOpen);
-  const setPopoverOpen = useUIStore((s) => s.setPopoverOpen);
   const [isDemoModalOpen, setDemoModalOpen] = useState(false);
   const [isPopoverOpen, setPopoverOpen] = useState(false);
 
   return (
     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:gap-6">
-      <DemoModal />
       <DemoModal isOpen={isDemoModalOpen} setIsOpen={setDemoModalOpen} />
       <button
         onClick={() => setDemoModalOpen(true)}
