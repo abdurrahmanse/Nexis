@@ -10,8 +10,8 @@ export const githubService = {
     // We hardcode the core repository we care about for the landing page
     try {
       return await githubApi.getRepository("steven-tey", "dashboard");
-    } catch (error) {
-      console.warn("Failed to fetch GitHub repository stats, falling back to 0 stars", error);
+    } catch (error: any) {
+      console.warn(`Failed to fetch GitHub repository stats: ${error?.message || "Unknown error"}. Falling back to 0 stars.`);
       return { stars: 0 };
     }
   },
