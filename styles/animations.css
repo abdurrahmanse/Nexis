@@ -1,0 +1,14 @@
+.animate-delay-150-forwards {
+  animation-delay: 0.15s;
+  animation-fill-mode: forwards;
+}
+
+.animate-delay-250-forwards {
+  animation-delay: 0.25s;
+  animation-fill-mode: forwards;
+}
+
+.animate-delay-300-forwards {
+  animation-delay: 0.3s;
+  animation-fill-mode: forwards;
+}
