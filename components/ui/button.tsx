@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 import { ButtonProps } from "@/types/components.types";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center space-x-2 rounded-full text-sm transition-all focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed",
+  "inline-flex items-center justify-center rounded-full text-sm transition-all focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed",
   {
     variants: {
       variant: {
@@ -23,6 +23,7 @@ const buttonVariants = cva(
         sm: "h-9 px-3",
         lg: "h-11 px-8",
         icon: "h-10 w-10",
+        none: "",
       },
     },
     defaultVariants: {
@@ -31,8 +32,6 @@ const buttonVariants = cva(
     },
   }
 )
-
-
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, icon, children, ...props }, ref) => {
@@ -55,8 +54,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        {icon && <span className="flex items-center">{icon}</span>}
-        <span>{children}</span>
+        {icon && <span className={cn("flex items-center shrink-0", children && "mr-2")}>{icon}</span>}
+        {children && <span>{children}</span>}
       </Comp>
     )
   }

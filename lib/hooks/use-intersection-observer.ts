@@ -1,5 +1,5 @@
-import { RefObject, useCallback, useRef, useSyncExternalStore } from "react";
 import { IntersectionObserverArgs } from "@/types/hooks.types";
+import { RefObject, useCallback, useRef, useSyncExternalStore } from "react";
 
 export default function useIntersectionObserver(
   elementRef: RefObject<Element | null>,

@@ -1,5 +1,5 @@
-import { useCallback, useSyncExternalStore } from "react";
 import { DeviceType, MediaQueryState } from "@/types/hooks.types";
+import { useCallback, useSyncExternalStore } from "react";
 
 const getServerSnapshot = (): MediaQueryState => ({
   device: null,
