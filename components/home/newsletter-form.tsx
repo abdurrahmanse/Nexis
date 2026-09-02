@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useSubscribeMutation } from "@/hooks/use-subscribe-mutation";
 import { Loader2, Mail, Send } from "lucide-react";
-import { NewsletterSuccess } from "./newsletter-success";
 import React, { useState } from "react";
+import { NewsletterSuccess } from "./newsletter-success";
 
 export function NewsletterForm() {
   const [email, setEmail] = useState("");
