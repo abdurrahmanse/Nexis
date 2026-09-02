@@ -1,12 +1,8 @@
 "use client";
 
 import { Logo } from "@/components/shared/logo";
-import { ThemeToggle } from "@/components/shared/theme-toggle";
-import { Button } from "@/components/ui/button";
-import { GLOBAL_CONTENT, NAVBAR_CONTENT } from "@/data/index";
+import { NavbarActions } from "./navbar-actions";
 import useScroll from "@/lib/hooks/use-scroll";
-import { Show, SignInButton, UserButton } from "@clerk/nextjs";
-import { LayoutDashboard, LogIn } from "lucide-react";
 
 export default function NavBar() {
   const scrolled = useScroll(50);
@@ -22,28 +18,7 @@ export default function NavBar() {
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex py-4 items-center justify-between">
           <Logo />
-          <div className="flex items-center space-x-4">
-            <ThemeToggle />
-            <Show when="signed-out">
-              <SignInButton mode="modal">
-                <Button variant="default" className="px-4 py-1.5 text-sm h-auto">
-                  <LogIn className="h-4 w-4" />
-                  {NAVBAR_CONTENT.signInButton}
-                </Button>
-              </SignInButton>
-            </Show>
-            <Show when="signed-in">
-              <UserButton>
-                <UserButton.MenuItems>
-                  <UserButton.Link
-                    label={GLOBAL_CONTENT.projectName}
-                    labelIcon={<LayoutDashboard className="h-4" />}
-                    href="/"
-                  />
-                </UserButton.MenuItems>
-              </UserButton>
-            </Show>
-          </div>
+          <NavbarActions />
         </div>
       </header>
     </>
