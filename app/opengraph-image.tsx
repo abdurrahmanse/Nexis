@@ -1,15 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from "next/og";
-
-import { GLOBAL_CONTENT } from "@/data/index";
-
-export const runtime = "nodejs";
-export const alt = GLOBAL_CONTENT.metadata.title;
-export const contentType = "image/png";
-
+import { contentService } from "@/services/content.service";
 import { ogStyles } from "@/styles/opengraph";
 
+export const runtime = "nodejs";
+export const contentType = "image/png";
+
 export default async function OG() {
+  const globalContent = await contentService.getGlobalContent();
   const fs = await import("fs");
   const path = await import("path");
   const sfPro = fs.readFileSync(
@@ -23,11 +21,11 @@ export default async function OG() {
           src={`data:image/png;base64,${fs.readFileSync(
             path.join(process.cwd(), "public/logo.png")
           ).toString("base64")}`}
-          alt={GLOBAL_CONTENT.logoAlt}
+          alt={globalContent.logoAlt}
           tw="w-20 h-20 mb-4 opacity-95"
         />
         <h1 style={ogStyles.title}>
-          {GLOBAL_CONTENT.projectName}
+          {globalContent.projectName}
         </h1>
       </div>
     ),
@@ -40,6 +38,6 @@ export default async function OG() {
           data: sfPro,
         },
       ],
-    },
+    }
   );
 }

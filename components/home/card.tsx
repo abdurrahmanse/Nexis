@@ -20,13 +20,15 @@ export default function Card({
         large ? "sm:col-span-2 md:col-span-2 lg:col-span-2" : "sm:col-span-1"
       }`}
     >
-      <div className="flex flex-1 aspect-video items-center justify-center p-6">{demo}</div>
+      <div className="flex min-h-[200px] sm:min-h-[250px] flex-1 items-center justify-center p-6">{demo}</div>
       <div className="mx-auto max-w-md text-center p-6">
-        <div className="flex items-center justify-center mb-3">
-          <div className="flex items-center justify-center h-12 w-12 rounded-full bg-gray-100 dark:bg-gray-800">
-            {icon}
+        {icon && (
+          <div className="flex items-center justify-center mb-3">
+            <div className="flex items-center justify-center h-12 w-12 rounded-full bg-gray-100 dark:bg-gray-800">
+              {icon}
+            </div>
           </div>
-        </div>
+        )}
         <h2 className="bg-linear-to-br from-black to-stone-500 dark:from-white dark:to-stone-400 bg-clip-text font-display text-xl font-bold text-transparent md:text-3xl md:font-normal">
           {title}
         </h2>

@@ -1,6 +1,5 @@
 import Footer from "@/components/layout/footer";
 import Navbar from "@/components/layout/navbar";
-import { GLOBAL_CONTENT } from "@/data/index";
 import { QueryProvider } from "@/lib/providers/query-provider";
 import { ThemeProvider } from "@/lib/providers/theme-provider";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -10,17 +9,7 @@ import { Suspense } from "react";
 import "../styles/globals.css";
 import { inter, sfPro } from "./fonts";
 
-export const metadata = {
-  title: GLOBAL_CONTENT.metadata.title,
-  description: GLOBAL_CONTENT.metadata.description,
-  twitter: {
-    card: "summary_large_image",
-    title: GLOBAL_CONTENT.metadata.title,
-    description: GLOBAL_CONTENT.metadata.description,
-    creator: "@steventey",
-  },
-  metadataBase: new URL("https://dashboard.dev"),
-};
+export { generateMetadata } from "@/lib/metadata";
 
 export default async function RootLayout({
   children,

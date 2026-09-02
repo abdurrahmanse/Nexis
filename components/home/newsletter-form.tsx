@@ -3,15 +3,18 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useSubscribeMutation } from "@/hooks/use-subscribe-mutation";
+import { useNewsletterContent } from "@/hooks/use-content";
 import { Loader2, Mail, Send } from "lucide-react";
 import React, { useState } from "react";
 import { NewsletterSuccess } from "./newsletter-success";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function NewsletterForm() {
   const [email, setEmail] = useState("");
   const [isSubscribed, setSubscribed] = useState(false);
 
   const subscribeMutation = useSubscribeMutation();
+  const { data: newsletterContent, isLoading } = useNewsletterContent();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,6 +31,19 @@ export function NewsletterForm() {
     return <NewsletterSuccess />;
   }
 
+  if (isLoading || !newsletterContent) {
+    return (
+      <div className="flex w-full max-w-md flex-col space-y-3 rounded-xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-black">
+        <Skeleton className="h-6 w-48 rounded-md" />
+        <Skeleton className="h-4 w-64 rounded-md" />
+        <div className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2 pt-2">
+          <Skeleton className="h-10 w-full flex-1 rounded-md" />
+          <Skeleton className="h-10 w-24 rounded-md" />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -35,17 +51,17 @@ export function NewsletterForm() {
     >
       <div className="flex items-center space-x-2">
         <Mail className="h-5 w-5 text-gray-400" />
-        <h3 className="font-display text-xl font-bold dark:text-white">Join the Newsletter</h3>
+        <h3 className="font-display text-xl font-bold dark:text-white">{newsletterContent.title}</h3>
       </div>
       <p className="text-sm text-gray-500 dark:text-gray-400">
-        Get the latest updates directly in your inbox.
+        {newsletterContent.description}
       </p>
 
       <div className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2 pt-2">
         <Input
           type="email"
           required
-          placeholder="your@email.com"
+          placeholder={newsletterContent.placeholder}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="flex-1"
@@ -60,7 +76,7 @@ export function NewsletterForm() {
           ) : (
             <Send className="h-4 w-4" />
           )}
-          {subscribeMutation.isPending ? "Subscribing..." : "Subscribe"}
+          {subscribeMutation.isPending ? newsletterContent.subscribingButton : newsletterContent.subscribeButton}
         </Button>
       </div>
       {subscribeMutation.isError && (
