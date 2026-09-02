@@ -65,9 +65,9 @@ export function NewsletterForm() {
           variant="default"
         >
           {subscribeMutation.isPending ? (
-            <Loader2 className="h-4 w-4 animate-spin mr-2" />
+            <Loader2 className="h-4 w-4 animate-spin" />
           ) : (
-            <Send className="h-4 w-4 mr-2" />
+            <Send className="h-4 w-4" />
           )}
           {subscribeMutation.isPending ? "Subscribing..." : "Subscribe"}
         </Button>

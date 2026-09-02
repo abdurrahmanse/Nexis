@@ -27,7 +27,7 @@ export default function NavBar() {
             <Show when="signed-out">
               <SignInButton mode="modal">
                 <Button variant="default" className="px-4 py-1.5 text-sm h-auto">
-                  <LogIn className="h-4 w-4 mr-2" />
+                  <LogIn className="h-4 w-4" />
                   {NAVBAR_CONTENT.signInButton}
                 </Button>
               </SignInButton>
@@ -37,7 +37,7 @@ export default function NavBar() {
                 <UserButton.MenuItems>
                   <UserButton.Link
                     label={GLOBAL_CONTENT.projectName}
-                    labelIcon={<LayoutDashboard className="h-4 w-4" />}
+                    labelIcon={<LayoutDashboard className="h-4" />}
                     href="/"
                   />
                 </UserButton.MenuItems>

@@ -16,7 +16,7 @@ export function HeroCta() {
       <Button variant="default" className="w-full sm:w-auto group" asChild>
         <a href={DEPLOY_URL} target="_blank" rel="noopener noreferrer">
           <svg
-            className="h-4 w-4 mr-2 group-hover:text-black dark:group-hover:text-white transition-colors"
+            className="h-4 w-4 group-hover:text-black dark:group-hover:text-white transition-colors"
             viewBox="0 0 24 24"
             fill="currentColor"
             xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +38,7 @@ export function HeroCta() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Github className="mr-2" />
+          <Github />
           <p>
             <span className="hidden sm:inline-block">Star on</span> GitHub{" "}
             {isLoading ? (
