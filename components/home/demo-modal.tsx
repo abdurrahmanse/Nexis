@@ -1,10 +1,10 @@
 "use client";
 
 import Modal from "@/components/shared/modal";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useGlobalContent, useModalContent } from "@/hooks/use-content";
 import { LogIn, Rocket } from "lucide-react";
 import Image from "next/image";
-import { Skeleton } from "@/components/ui/skeleton";
 
 export function DemoModal({ 
   isOpen, 
@@ -34,7 +34,7 @@ export function DemoModal({
             </>
           ) : (
             <>
-              <a href="https://dashboard.dev">
+              <a href={globalContent.metadata.siteUrl}>
                 <Image
                   src="/logo.png"
                   alt={globalContent.logoAlt}

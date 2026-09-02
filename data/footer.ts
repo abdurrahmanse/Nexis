@@ -1,4 +1,4 @@
 export const FOOTER_CONTENT = {
-  projectBy: "A project by",
-  buyMeACoffee: "Buy me a coffee",
+  projectBy: "© 2026",
+  buyMeACoffee: "Contact Support",
 } as const;

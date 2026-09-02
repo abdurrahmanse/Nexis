@@ -1,10 +1,12 @@
 export const COMPONENT_GRID_CONTENT = {
-  tooltipContent: "Dashboard is an opinionated collection of components, hooks, and utilities for your Next.js project.",
-  tooltipTab: "Tooltip",
-  popoverTab: "Popover",
-  modalTab: "Modal",
-  copyToClipboardTab: "Copy to Clipboard",
-  copySuccess: "Copied!",
-  copyPrompt: "Click to copy",
-  popoverItems: ["Item 1", "Item 2", "Item 3"],
+  modalTab: "View Integrations",
+  popoverTab: "Deployment Regions",
+  popoverItems: [
+    "us-east-1 (N. Virginia)",
+    "eu-west-1 (Ireland)",
+    "ap-southeast-1 (Singapore)",
+    "ap-northeast-1 (Tokyo)"
+  ],
+  tooltipTab: "Security Overview",
+  tooltipContent: "Nexis is SOC2 Type II certified and encrypts all data at rest using AES-256.",
 } as const;

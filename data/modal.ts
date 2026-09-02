@@ -1,6 +1,6 @@
 export const MODAL_CONTENT = {
-  demoTitle: "Dashboard",
-  demoDescription: "Dashboard is an opinionated collection of components, hooks, and utilities for your Next.js project.",
-  deployButton: "Deploy to Vercel",
-  signInButton: "Sign In",
+  demoTitle: "Nexis Cloud",
+  demoDescription: "Access your enterprise workspace, manage automations, and view your team's advanced analytics.",
+  deployButton: "Book a Demo",
+  signInButton: "Sign In to Workspace",
 } as const;

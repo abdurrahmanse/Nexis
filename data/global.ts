@@ -1,19 +1,19 @@
 export const GLOBAL_CONTENT = {
-  projectName: "Dashboard",
-  logoAlt: "Dashboard logo",
+  projectName: "Nexis",
+  logoAlt: "Nexis platform logo",
   author: {
-    name: "Abdur Rahman",
-    twitterUrl: "https://twitter.com/abdurrahmanse",
-    buyMeACoffeeUrl: "https://www.buymeacoffee.com/abdurrahmanse",
+    name: "Nexis Technologies Inc.",
+    twitterUrl: "https://twitter.com/nexis_hq",
+    buyMeACoffeeUrl: "https://www.buymeacoffee.com/nexis",
   },
   social: {
-    twitterHandle: "@abdurrahmanse",
-    twitterAnnouncement: "https://twitter.com/abdurrahmanse/status/1710911681879050240",
-    githubRepo: "abdurrahmanse/dashboard",
+    twitterHandle: "@nexis_hq",
+    twitterAnnouncement: "https://twitter.com/nexis_hq/status/12345",
+    githubRepo: "nexis-hq/platform",
   },
   metadata: {
-    title: "Dashboard - Building blocks for your Next.js project",
-    description: "Dashboard is an opinionated collection of components, hooks, and utilities for your Next.js project.",
-    siteUrl: "https://dashboard.dev",
+    title: "Nexis - The Intelligence Platform for Modern Workspaces",
+    description: "Nexis unifies your team's knowledge, streamlines workflows, and helps you scale your operations effortlessly through AI-driven insights.",
+    siteUrl: "https://nexis.app",
   },
 } as const;
