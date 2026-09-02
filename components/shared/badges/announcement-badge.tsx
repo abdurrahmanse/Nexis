@@ -4,9 +4,10 @@ interface AnnouncementBadgeProps {
   href: string;
   icon: ReactNode;
   text: string;
+  rightIcon?: ReactNode;
 }
 
-export function AnnouncementBadge({ href, icon, text }: AnnouncementBadgeProps) {
+export function AnnouncementBadge({ href, icon, text, rightIcon }: AnnouncementBadgeProps) {
   return (
     <a
       href={href}
@@ -16,6 +17,7 @@ export function AnnouncementBadge({ href, icon, text }: AnnouncementBadgeProps) 
     >
       {icon}
       <p className="text-sm font-semibold text-[#1d9bf0]">{text}</p>
+      {rightIcon}
     </a>
   );
 }

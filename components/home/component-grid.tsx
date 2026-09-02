@@ -3,7 +3,7 @@
 import { DemoModal } from "@/components/home/demo-modal";
 import Popover from "@/components/shared/popover";
 import Tooltip from "@/components/shared/tooltip";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, AppWindow, MousePointerClick, MessageSquare } from "lucide-react";
 import { useState } from "react";
 
 import { COMPONENT_GRID_CONTENT } from "@/data/index";
@@ -19,6 +19,7 @@ export default function ComponentGrid() {
         onClick={() => setDemoModalOpen(true)}
         className="flex w-full items-center justify-center rounded-md border border-gray-300 dark:border-gray-700 px-3 py-2 transition-all duration-75 hover:border-gray-800 dark:hover:border-gray-300 focus:outline-none active:bg-gray-100 dark:active:bg-gray-800"
       >
+        <AppWindow className="mr-2 h-4 w-4 text-gray-500" />
         <p className="text-gray-600 dark:text-gray-300">{COMPONENT_GRID_CONTENT.modalTab}</p>
       </button>
       <Popover
@@ -38,7 +39,10 @@ export default function ComponentGrid() {
           onClick={() => setPopoverOpen(!isPopoverOpen)}
           className="flex w-full items-center justify-between rounded-md border border-gray-300 dark:border-gray-700 px-4 py-2 transition-all duration-75 hover:border-gray-800 dark:hover:border-gray-300 focus:outline-none active:bg-gray-100 dark:active:bg-gray-800"
         >
-          <p className="text-gray-600 dark:text-gray-300">{COMPONENT_GRID_CONTENT.popoverTab}</p>
+          <div className="flex items-center">
+            <MousePointerClick className="mr-2 h-4 w-4 text-gray-500" />
+            <p className="text-gray-600 dark:text-gray-300">{COMPONENT_GRID_CONTENT.popoverTab}</p>
+          </div>
           <ChevronDown
             className={`h-4 w-4 text-gray-600 dark:text-gray-400 transition-all ${
               isPopoverOpen ? "rotate-180" : ""
@@ -48,6 +52,7 @@ export default function ComponentGrid() {
       </Popover>
       <Tooltip content={COMPONENT_GRID_CONTENT.tooltipContent}>
         <div className="flex w-full cursor-default items-center justify-center rounded-md border border-gray-300 dark:border-gray-700 px-3 py-2 transition-all duration-75 hover:border-gray-800 dark:hover:border-gray-300 focus:outline-none active:bg-gray-100 dark:active:bg-gray-800">
+          <MessageSquare className="mr-2 h-4 w-4 text-gray-500" />
           <p className="text-gray-600 dark:text-gray-300">{COMPONENT_GRID_CONTENT.tooltipTab}</p>
         </div>
       </Tooltip>

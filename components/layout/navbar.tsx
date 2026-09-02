@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { GLOBAL_CONTENT, NAVBAR_CONTENT } from "@/data/index";
 import useScroll from "@/lib/hooks/use-scroll";
 import { Show, SignInButton, UserButton } from "@clerk/nextjs";
-import { LayoutDashboard } from "lucide-react";
+import { LayoutDashboard, LogIn } from "lucide-react";
 
 export default function NavBar() {
   const scrolled = useScroll(50);
@@ -27,6 +27,7 @@ export default function NavBar() {
             <Show when="signed-out">
               <SignInButton mode="modal">
                 <Button variant="default" className="px-4 py-1.5 text-sm h-auto">
+                  <LogIn className="h-4 w-4 mr-2" />
                   {NAVBAR_CONTENT.signInButton}
                 </Button>
               </SignInButton>
