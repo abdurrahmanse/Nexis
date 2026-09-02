@@ -1,24 +1,29 @@
-import { useCallback, useEffect, useState, useRef } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 
 export default function useScroll(threshold: number) {
-  const [scrolled, setScrolled] = useState(false);
-  const rafRef = useRef<number>(0);
-
-  const onScroll = useCallback(() => {
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    
-    rafRef.current = requestAnimationFrame(() => {
-      setScrolled(window.scrollY > threshold);
-    });
+  const getSnapshot = useCallback(() => {
+    if (typeof window === "undefined") return false;
+    return window.scrollY > threshold;
   }, [threshold]);
 
-  useEffect(() => {
+  const getServerSnapshot = () => false;
+
+  const subscribe = useCallback((callback: () => void) => {
+    if (typeof window === "undefined") return () => {};
+    
+    let rafId: number;
+    const onScroll = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(callback);
+    };
+    
     window.addEventListener("scroll", onScroll, { passive: true });
+    
     return () => {
       window.removeEventListener("scroll", onScroll);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      cancelAnimationFrame(rafId);
     };
-  }, [onScroll]);
+  }, []);
 
-  return scrolled;
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }

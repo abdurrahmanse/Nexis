@@ -1,43 +1,51 @@
-import { RefObject, useEffect, useState } from "react";
+import { RefObject, useCallback, useRef, useSyncExternalStore } from "react";
 
 interface Args extends IntersectionObserverInit {
   freezeOnceVisible?: boolean;
 }
 
-function useIntersectionObserver(
+export default function useIntersectionObserver(
   elementRef: RefObject<Element>,
   {
     threshold = 0,
     root = null,
     rootMargin = "0%",
     freezeOnceVisible = false,
-  }: Args,
+  }: Args
 ): IntersectionObserverEntry | undefined {
-  const [entry, setEntry] = useState<IntersectionObserverEntry>();
+  const entryRef = useRef<IntersectionObserverEntry | undefined>(undefined);
 
-  const frozen = entry?.isIntersecting && freezeOnceVisible;
+  const getSnapshot = useCallback(() => entryRef.current, []);
+  const getServerSnapshot = useCallback(() => undefined, []);
 
-  const updateEntry = ([entry]: IntersectionObserverEntry[]): void => {
-    setEntry(entry);
-  };
+  const subscribe = useCallback(
+    (callback: () => void) => {
+      const node = elementRef?.current;
+      const hasIOSupport = typeof window !== "undefined" && !!window.IntersectionObserver;
 
-  useEffect(() => {
-    const node = elementRef?.current; // DOM Ref
-    const hasIOSupport = !!window.IntersectionObserver;
+      if (!hasIOSupport || !node) return () => {};
 
-    if (!hasIOSupport || frozen || !node) return;
+      if (freezeOnceVisible && entryRef.current?.isIntersecting) {
+        return () => {};
+      }
 
-    const observerParams = { threshold, root, rootMargin };
-    const observer = new IntersectionObserver(updateEntry, observerParams);
+      const observer = new IntersectionObserver(
+        ([newEntry]) => {
+          entryRef.current = newEntry;
+          callback();
 
-    observer.observe(node);
+          if (freezeOnceVisible && newEntry.isIntersecting) {
+            observer.disconnect();
+          }
+        },
+        { threshold, root, rootMargin }
+      );
 
-    return () => observer.disconnect();
+      observer.observe(node);
+      return () => observer.disconnect();
+    },
+    [elementRef, threshold, root, rootMargin, freezeOnceVisible]
+  );
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [threshold, root, rootMargin, frozen]);
-
-  return entry;
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }
-
-export default useIntersectionObserver;

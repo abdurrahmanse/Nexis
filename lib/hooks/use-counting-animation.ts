@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useCallback, useRef, useSyncExternalStore } from "react";
 
 const easeOutQuad = (t: number, b: number, c: number, d: number) => {
   t = t > d ? d : t / d;
@@ -6,12 +6,17 @@ const easeOutQuad = (t: number, b: number, c: number, d: number) => {
 };
 
 export function useCountingAnimation(value: number, duration: number = 800, start: number = 0) {
-  const [count, setCount] = useState(start);
-  const frameRef = useRef<number>(0);
+  const currentCountRef = useRef<number>(start);
 
-  useEffect(() => {
+  const getSnapshot = useCallback(() => currentCountRef.current, []);
+  const getServerSnapshot = useCallback(() => start, [start]);
+
+  const subscribe = useCallback((callback: () => void) => {
     let startTime: number | undefined;
+    let frameId: number;
     
+    currentCountRef.current = start;
+
     const animateCount = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
       const timePassed = timestamp - startTime;
@@ -19,20 +24,22 @@ export function useCountingAnimation(value: number, duration: number = 800, star
       const currentCount = easeOutQuad(progress, start, value - start, 1);
       
       if (currentCount >= value) {
-        setCount(value);
+        currentCountRef.current = value;
+        callback();
         return;
       }
       
-      setCount(currentCount);
-      frameRef.current = requestAnimationFrame(animateCount);
+      currentCountRef.current = currentCount;
+      callback();
+      frameId = requestAnimationFrame(animateCount);
     };
     
-    frameRef.current = requestAnimationFrame(animateCount);
+    frameId = requestAnimationFrame(animateCount);
 
     return () => {
-      if (frameRef.current) cancelAnimationFrame(frameRef.current);
+      if (frameId) cancelAnimationFrame(frameId);
     };
   }, [value, duration, start]);
 
-  return count;
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }

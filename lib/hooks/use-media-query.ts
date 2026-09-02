@@ -1,58 +1,75 @@
-import { useEffect, useState, useCallback } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 
-export default function useMediaQuery() {
-  const [device, setDevice] = useState<"mobile" | "tablet" | "desktop" | null>(
-    null
-  );
-  const [dimensions, setDimensions] = useState<{
-    width: number;
-    height: number;
-  } | null>(null);
+type DeviceType = "mobile" | "tablet" | "desktop" | null;
 
-  const checkDevice = useCallback(() => {
-    if (typeof window === "undefined") return;
+interface MediaQueryState {
+  device: DeviceType;
+  width: number | undefined;
+  height: number | undefined;
+  isMobile: boolean;
+  isTablet: boolean;
+  isDesktop: boolean;
+}
 
-    if (window.matchMedia("(max-width: 640px)").matches) {
-      setDevice("mobile");
-    } else if (
-      window.matchMedia("(min-width: 641px) and (max-width: 1024px)").matches
-    ) {
-      setDevice("tablet");
-    } else {
-      setDevice("desktop");
-    }
-    
-    setDimensions(prev => {
-      if (prev?.width === window.innerWidth && prev?.height === window.innerHeight) {
-        return prev; // bail out of render if identical
-      }
-      return { width: window.innerWidth, height: window.innerHeight };
-    });
-  }, []);
+const getServerSnapshot = (): MediaQueryState => ({
+  device: null,
+  width: undefined,
+  height: undefined,
+  isMobile: false,
+  isTablet: false,
+  isDesktop: false,
+});
 
-  useEffect(() => {
-    checkDevice();
-    
-    let timeoutId: NodeJS.Timeout;
-    const handleResize = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(checkDevice, 150);
-    };
+// Cache reference to prevent unnecessary re-renders
+let cachedState: MediaQueryState | null = null;
 
-    window.addEventListener("resize", handleResize, { passive: true });
+const getSnapshot = (): MediaQueryState => {
+  if (typeof window === "undefined") return getServerSnapshot();
 
-    return () => {
-      clearTimeout(timeoutId);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [checkDevice]);
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  let device: DeviceType = "desktop";
+  
+  if (window.matchMedia("(max-width: 640px)").matches) {
+    device = "mobile";
+  } else if (window.matchMedia("(min-width: 641px) and (max-width: 1024px)").matches) {
+    device = "tablet";
+  }
 
-  return {
+  if (
+    cachedState &&
+    cachedState.width === width &&
+    cachedState.height === height &&
+    cachedState.device === device
+  ) {
+    return cachedState;
+  }
+
+  cachedState = {
     device,
-    width: dimensions?.width,
-    height: dimensions?.height,
+    width,
+    height,
     isMobile: device === "mobile",
     isTablet: device === "tablet",
     isDesktop: device === "desktop",
   };
+  return cachedState;
+};
+
+export default function useMediaQuery() {
+  const subscribe = useCallback((callback: () => void) => {
+    if (typeof window === "undefined") return () => {};
+    let timeoutId: NodeJS.Timeout;
+    const handleResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(callback, 150);
+    };
+    window.addEventListener("resize", handleResize, { passive: true });
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }
