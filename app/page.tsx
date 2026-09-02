@@ -1,8 +1,7 @@
 import { FeatureGrid } from "@/components/home/feature-grid";
 import { HeroSection } from "@/components/home/hero-section";
 import { NewsletterSection } from "@/components/home/newsletter-section";
-import { githubService } from "@/features/github/services/github.service";
-import { queryKeys } from "@/lib/query/query-keys";
+import { githubStatsQueryOptions } from "@/features/github/queries/github-stats.query";
 import {
     dehydrate,
     HydrationBoundary,
@@ -12,10 +11,7 @@ import {
 export default async function Home() {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: queryKeys.github.stats("steven-tey", "dashboard"),
-    queryFn: () => githubService.getRepositoryStats(),
-  });
+  await queryClient.prefetchQuery(githubStatsQueryOptions());
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
