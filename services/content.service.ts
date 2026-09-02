@@ -1,51 +1,81 @@
 import { contentRepository } from "@/repositories/content.repository";
+import { GlobalContentSchema, FeaturesContentSchema, NewsletterContentSchema } from "@/schemas/content.schema";
+import { logger } from "@/lib/core/logger";
+import { ValidationError, AppError } from "@/lib/core/errors";
 
-// Simulate network latency (useful for testing loading states)
-// Change to 0 in production to avoid hydration mismatch/flicker
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-/**
- * Service to manage all UI content.
- * Consumes the repository layer and applies any business logic or transformations.
- */
-export const contentService = {
-  getGlobalContent: async () => {
-    await delay(0);
-    return contentRepository.getGlobalContent();
-  },
+export class ContentService {
+  async getGlobalContent() {
+    try {
+      await delay(0);
+      const data = await contentRepository.getGlobalContent();
+      const parsed = GlobalContentSchema.safeParse(data);
+      
+      if (!parsed.success) {
+        logger.error("Global content validation failed", parsed.error);
+        throw new ValidationError("Invalid global content configuration format.");
+      }
+      return parsed.data;
+    } catch (error) {
+      if (error instanceof AppError) throw error;
+      logger.error("Failed to fetch global content", error);
+      throw new AppError("Internal Content Service Error", "CONTENT_SERVICE_ERROR");
+    }
+  }
   
-  getNavbarContent: async () => {
-    await delay(0);
+  async getNavbarContent() {
     return contentRepository.getNavbarContent();
-  },
+  }
   
-  getFooterContent: async () => {
-    await delay(0);
+  async getFooterContent() {
     return contentRepository.getFooterContent();
-  },
+  }
 
-  getHeroContent: async () => {
-    await delay(0);
+  async getHeroContent() {
     return contentRepository.getHeroContent();
-  },
+  }
   
-  getModalContent: async () => {
-    await delay(0);
+  async getModalContent() {
     return contentRepository.getModalContent();
-  },
+  }
   
-  getComponentGridContent: async () => {
-    await delay(0);
+  async getComponentGridContent() {
     return contentRepository.getComponentGridContent();
-  },
+  }
   
-  getFeaturesContent: async () => {
-    await delay(0);
-    return contentRepository.getFeaturesContent();
-  },
+  async getFeaturesContent() {
+    try {
+      const data = await contentRepository.getFeaturesContent();
+      const parsed = FeaturesContentSchema.safeParse(data);
+      
+      if (!parsed.success) {
+        logger.error("Features content validation failed", parsed.error);
+        // Business Logic: Fallback to an empty safe array instead of completely crashing the marketing page.
+        return []; 
+      }
+      return parsed.data;
+    } catch (error) {
+      logger.error("Failed to fetch features content", error);
+      return []; // Resilient fallback
+    }
+  }
 
-  getNewsletterContent: async () => {
-    await delay(0);
-    return contentRepository.getNewsletterContent();
-  },
-};
+  async getNewsletterContent() {
+    try {
+      const data = await contentRepository.getNewsletterContent();
+      const parsed = NewsletterContentSchema.safeParse(data);
+      
+      if (!parsed.success) {
+        throw new ValidationError("Invalid newsletter configuration.");
+      }
+      return parsed.data;
+    } catch (error) {
+      logger.error("Failed to fetch newsletter content", error);
+      throw error;
+    }
+  }
+}
+
+// Export a singleton instance
+export const contentService = new ContentService();

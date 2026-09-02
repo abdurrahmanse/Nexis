@@ -1,20 +1,41 @@
 import { githubRepository } from "@/repositories/github.repository";
 import { GithubRepositoryStats } from "@/types/github.types";
+import { logger } from "@/lib/core/logger";
+import { NetworkError } from "@/lib/core/errors";
 
-export const githubService = {
+export class GithubService {
   /**
    * Domain service to get repository statistics.
-   * Encapsulates the specific parameters for the main repository.
+   * Includes enterprise retry logic and safe fallbacks for rate limits.
    */
   async getRepositoryStats(
-    owner: string = "steven-tey", 
+    owner: string = "abdurrahmanse", 
     repo: string = "dashboard"
   ): Promise<GithubRepositoryStats> {
-    try {
-      return await githubRepository.getRepository(owner, repo);
-    } catch (error: any) {
-      console.warn(`Failed to fetch GitHub repository stats: ${error?.message || "Unknown error"}. Falling back to 0 stars.`);
-      return { stars: 0 };
+    const MAX_RETRIES = 2;
+    let attempt = 0;
+
+    while (attempt <= MAX_RETRIES) {
+      try {
+        const stats = await githubRepository.getRepository(owner, repo);
+        return stats;
+      } catch (error: any) {
+        attempt++;
+        const isRateLimit = error?.message?.includes("API rate limit exceeded");
+        
+        if (isRateLimit || attempt > MAX_RETRIES) {
+          logger.warn(`GitHub API failure. Rate Limited: ${isRateLimit}`, { owner, repo, error: error?.message });
+          // Business Logic Fallback: Return 0 stars silently to keep UI rendering without crashing.
+          return { stars: 0 }; 
+        }
+
+        logger.info(`Retrying GitHub API fetch (Attempt ${attempt}/${MAX_RETRIES})`);
+        await new Promise(res => setTimeout(res, 1000 * attempt)); // Exponential backoff
+      }
     }
-  },
-};
+    
+    return { stars: 0 };
+  }
+}
+
+export const githubService = new GithubService();
