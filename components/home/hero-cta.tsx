@@ -2,7 +2,7 @@
 
 import { Github } from "@/components/shared/icons";
 import { Button } from "@/components/ui/button";
-import { GLOBAL_CONTENT, HERO_CONTENT } from "@/data/content";
+import { GLOBAL_CONTENT, HERO_CONTENT } from "@/data/index";
 import { useGithubStats } from "@/features/github/hooks/use-github-stats";
 import { DEPLOY_URL } from "@/lib/constants";
 import { nFormatter } from "@/lib/utils";

@@ -6,7 +6,7 @@ import Tooltip from "@/components/shared/tooltip";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 
-import { COMPONENT_GRID_CONTENT } from "@/data/content";
+import { COMPONENT_GRID_CONTENT } from "@/data/index";
 
 export default function ComponentGrid() {
   const [isDemoModalOpen, setDemoModalOpen] = useState(false);

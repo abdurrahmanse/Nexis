@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from "next/og";
 
-import { GLOBAL_CONTENT } from "@/data/content";
+import { GLOBAL_CONTENT } from "@/data/index";
 
 export const runtime = "nodejs";
 export const alt = GLOBAL_CONTENT.metadata.title;

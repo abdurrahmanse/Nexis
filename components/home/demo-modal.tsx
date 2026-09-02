@@ -1,7 +1,7 @@
 "use client";
 
 import Modal from "@/components/shared/modal";
-import { GLOBAL_CONTENT, MODAL_CONTENT } from "@/data/content";
+import { GLOBAL_CONTENT, MODAL_CONTENT } from "@/data/index";
 import Image from "next/image";
 
 export function DemoModal({ 

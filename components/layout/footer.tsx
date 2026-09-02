@@ -1,4 +1,4 @@
-import { FOOTER_CONTENT, GLOBAL_CONTENT } from "@/data/content";
+import { FOOTER_CONTENT, GLOBAL_CONTENT } from "@/data/index";
 import { Heart } from "lucide-react";
 import { BuyMeACoffee } from "../shared/icons";
 

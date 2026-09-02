@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { GLOBAL_CONTENT } from "@/data/content";
+import { GLOBAL_CONTENT } from "@/data/index";
 
 export function Logo() {
   return (

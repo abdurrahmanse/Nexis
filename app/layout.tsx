@@ -1,6 +1,6 @@
 import Footer from "@/components/layout/footer";
 import Navbar from "@/components/layout/navbar";
-import { GLOBAL_CONTENT } from "@/data/content";
+import { GLOBAL_CONTENT } from "@/data/index";
 import { QueryProvider } from "@/lib/providers/query-provider";
 import { ThemeProvider } from "@/lib/providers/theme-provider";
 import { ClerkProvider } from "@clerk/nextjs";

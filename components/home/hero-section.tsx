@@ -2,7 +2,7 @@ import { AnnouncementBadge } from "@/components/shared/badges/announcement-badge
 import { Twitter } from "@/components/shared/icons";
 import { DescriptionText } from "@/components/shared/typography/description-text";
 import { TitleText } from "@/components/shared/typography/title-text";
-import { GLOBAL_CONTENT, HERO_CONTENT } from "@/data/content";
+import { GLOBAL_CONTENT, HERO_CONTENT } from "@/data/index";
 import { HeroCta } from "./hero-cta";
 
 export function HeroSection() {

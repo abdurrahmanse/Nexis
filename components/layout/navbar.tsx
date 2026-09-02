@@ -3,7 +3,7 @@
 import { Logo } from "@/components/shared/logo";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { Button } from "@/components/ui/button";
-import { GLOBAL_CONTENT, NAVBAR_CONTENT } from "@/data/content";
+import { GLOBAL_CONTENT, NAVBAR_CONTENT } from "@/data/index";
 import useScroll from "@/lib/hooks/use-scroll";
 import { Show, SignInButton, UserButton } from "@clerk/nextjs";
 import { LayoutDashboard } from "lucide-react";

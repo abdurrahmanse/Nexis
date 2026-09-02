@@ -3,7 +3,7 @@ import Image from "next/image";
 import WebVitals from "./web-vitals";
 import { Component, Zap, Rocket, Lock, Code } from "lucide-react";
 
-import { FEATURES_CONTENT } from "@/data/features";
+import { FEATURES_CONTENT } from "@/data/index";
 
 export const features = FEATURES_CONTENT.map((feature) => {
   let demo = null;
