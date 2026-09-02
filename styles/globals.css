@@ -70,4 +70,11 @@
 @custom-variant radix-side-top (&[data-side="top"]);
 @custom-variant radix-side-bottom (&[data-side="bottom"]);
 
+/* Slightly scale down all rem-based units (including text) across the entire site */
+@layer base {
+  html {
+    font-size: 15px; /* Default is 16px. This slightly reduces everything proportionally */
+  }
+}
+
 @import "../styles/animations.css";
