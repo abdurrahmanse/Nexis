@@ -16,7 +16,7 @@ export default function Card({
 }) {
   return (
     <div
-      className={`relative col-span-1 flex flex-col overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-black shadow-md ${
+      className={`relative col-span-1 flex flex-col overflow-hidden rounded-3xl border border-white/20 dark:border-white/10 bg-white/60 dark:bg-black/40 backdrop-blur-xl shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:bg-white/80 dark:hover:bg-black/60 ${
         large ? "sm:col-span-2 md:col-span-2 lg:col-span-2" : "sm:col-span-1"
       }`}
     >

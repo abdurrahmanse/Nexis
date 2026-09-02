@@ -22,7 +22,11 @@ export default async function RootLayout({
         <body className={cx(sfPro.variable, inter.variable, "flex min-h-screen flex-col")}>
           <QueryProvider>
             <ThemeProvider>
-              <div className="fixed -z-10 h-screen w-full bg-linear-to-br from-indigo-50 via-white to-cyan-100 dark:from-gray-900 dark:via-gray-950 dark:to-black" />
+              <div className="fixed inset-0 -z-10 overflow-hidden bg-slate-50 dark:bg-slate-950">
+                <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-fuchsia-400/30 dark:bg-fuchsia-600/20 blur-[120px] mix-blend-multiply dark:mix-blend-screen" />
+                <div className="absolute top-[20%] -right-[10%] w-[30%] h-[50%] rounded-full bg-cyan-400/30 dark:bg-cyan-600/20 blur-[120px] mix-blend-multiply dark:mix-blend-screen animate-pulse duration-10000" />
+                <div className="absolute -bottom-[10%] left-[20%] w-[40%] h-[40%] rounded-full bg-indigo-400/30 dark:bg-indigo-600/20 blur-[120px] mix-blend-multiply dark:mix-blend-screen" />
+              </div>
               <Suspense fallback="...">
                 <Navbar />
               </Suspense>
