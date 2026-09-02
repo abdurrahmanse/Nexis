@@ -1,5 +1,5 @@
-import { githubApi } from "../api/github.api";
-import { GithubRepositoryStats } from "../types";
+import { githubRepository } from "@/repositories/github.repository";
+import { GithubRepositoryStats } from "@/types/github.types";
 
 export const githubService = {
   /**
@@ -11,7 +11,7 @@ export const githubService = {
     repo: string = "dashboard"
   ): Promise<GithubRepositoryStats> {
     try {
-      return await githubApi.getRepository(owner, repo);
+      return await githubRepository.getRepository(owner, repo);
     } catch (error: any) {
       console.warn(`Failed to fetch GitHub repository stats: ${error?.message || "Unknown error"}. Falling back to 0 stars.`);
       return { stars: 0 };

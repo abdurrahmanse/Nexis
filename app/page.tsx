@@ -1,7 +1,7 @@
 import { FeatureGrid } from "@/components/home/feature-grid";
 import { HeroSection } from "@/components/home/hero-section";
 import { NewsletterSection } from "@/components/home/newsletter-section";
-import { githubStatsQueryOptions } from "@/features/github/queries/github-stats.query";
+import { githubStatsQueryOptions } from "@/queries/github-stats.query";
 import {
     dehydrate,
     HydrationBoundary,

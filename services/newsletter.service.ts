@@ -1,5 +1,5 @@
-import { newsletterApi } from "../api/newsletter.api";
-import { SubscribeRequest, SubscribeResponse } from "../types";
+import { newsletterRepository } from "@/repositories/newsletter.repository";
+import { SubscribeRequest, SubscribeResponse } from "@/types/newsletter.types";
 
 export const newsletterService = {
   /**
@@ -15,6 +15,6 @@ export const newsletterService = {
       email: email.trim().toLowerCase(),
     };
 
-    return newsletterApi.subscribe(request);
+    return newsletterRepository.subscribe(request);
   },
 };

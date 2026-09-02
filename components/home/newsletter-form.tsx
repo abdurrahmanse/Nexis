@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useSubscribeMutation } from "@/features/newsletter/hooks/use-subscribe-mutation";
+import { useSubscribeMutation } from "@/hooks/use-subscribe-mutation";
 import { Loader2 } from "lucide-react";
 import React, { useState } from "react";
 

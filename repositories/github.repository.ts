@@ -1,10 +1,10 @@
 import { env } from "@/config/env";
 import { apiClient } from "@/lib/api/client";
-import { GithubRepositoryResponse, GithubRepositoryStats } from "../types";
+import { GithubRepositoryResponse, GithubRepositoryStats } from "@/types/github.types";
 
 const GITHUB_API_BASE_URL = "https://api.github.com";
 
-export const githubApi = {
+export const githubRepository = {
   /**
    * Fetches the repository statistics from the GitHub API.
    * Isolates the external API details (URL, headers, structure) from the application.

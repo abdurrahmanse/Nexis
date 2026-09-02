@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { githubService } from "../services/github.service";
+import { githubService } from "@/services/github.service";
 import { queryKeys } from "@/lib/query/query-keys";
 
 export const githubStatsQueryOptions = (

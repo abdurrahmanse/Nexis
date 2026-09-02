@@ -1,7 +1,7 @@
 import { apiClient } from "@/lib/api/client";
-import { SubscribeRequest, SubscribeResponse } from "../types";
+import { SubscribeRequest, SubscribeResponse } from "@/types/newsletter.types";
 
-export const newsletterApi = {
+export const newsletterRepository = {
   /**
    * Subscribes a user to the newsletter via the advanced API client.
    * This acts as the Data Repository layer.

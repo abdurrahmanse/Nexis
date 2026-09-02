@@ -9,29 +9,8 @@
     "allowJs": true,
     "skipLibCheck": true,
     "paths": {
-      "@/components/*": [
-        "./components/*"
-      ],
-      "@/pages/*": [
-        "./pages/*"
-      ],
-      "@/app/*": [
-        "./app/*"
-      ],
-      "@/lib/*": [
-        "./lib/*"
-      ],
-      "@/features/*": [
-        "./features/*"
-      ],
-      "@/config/*": [
-        "./config/*"
-      ],
-      "@/styles/*": [
-        "./styles/*"
-      ],
-      "@/data/*": [
-        "./data/*"
+      "@/*": [
+        "./*"
       ]
     },
     "strict": true,
