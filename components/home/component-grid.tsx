@@ -3,7 +3,7 @@
 import { DemoModal } from "@/components/home/demo-modal";
 import Popover from "@/components/shared/popover";
 import Tooltip from "@/components/shared/tooltip";
-import { ChevronDown, AppWindow, MousePointerClick, MessageSquare } from "lucide-react";
+import { AppWindow, ChevronDown, MessageSquare, MousePointerClick } from "lucide-react";
 import { useState } from "react";
 
 import { COMPONENT_GRID_CONTENT } from "@/data/index";

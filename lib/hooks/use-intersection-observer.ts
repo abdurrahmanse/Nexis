@@ -1,17 +1,14 @@
 import { RefObject, useCallback, useRef, useSyncExternalStore } from "react";
-
-interface Args extends IntersectionObserverInit {
-  freezeOnceVisible?: boolean;
-}
+import { IntersectionObserverArgs } from "@/types/hooks.types";
 
 export default function useIntersectionObserver(
-  elementRef: RefObject<Element>,
+  elementRef: RefObject<Element | null>,
   {
     threshold = 0,
     root = null,
     rootMargin = "0%",
     freezeOnceVisible = false,
-  }: Args
+  }: IntersectionObserverArgs
 ): IntersectionObserverEntry | undefined {
   const entryRef = useRef<IntersectionObserverEntry | undefined>(undefined);
 

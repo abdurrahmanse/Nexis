@@ -1,11 +1,4 @@
-import { ReactNode } from "react";
-
-interface AnnouncementBadgeProps {
-  href: string;
-  icon: ReactNode;
-  text: string;
-  rightIcon?: ReactNode;
-}
+import { AnnouncementBadgeProps } from "@/types/components.types";
 
 export function AnnouncementBadge({ href, icon, text, rightIcon }: AnnouncementBadgeProps) {
   return (

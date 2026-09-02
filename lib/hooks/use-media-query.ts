@@ -1,15 +1,5 @@
 import { useCallback, useSyncExternalStore } from "react";
-
-type DeviceType = "mobile" | "tablet" | "desktop" | null;
-
-interface MediaQueryState {
-  device: DeviceType;
-  width: number | undefined;
-  height: number | undefined;
-  isMobile: boolean;
-  isTablet: boolean;
-  isDesktop: boolean;
-}
+import { DeviceType, MediaQueryState } from "@/types/hooks.types";
 
 const getServerSnapshot = (): MediaQueryState => ({
   device: null,

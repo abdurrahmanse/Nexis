@@ -9,14 +9,7 @@ export class ApiError extends Error {
   }
 }
 
-interface RequestConfig extends RequestInit {
-  params?: Record<string, string>;
-  baseURL?: string;
-  retries?: number;
-}
-
-type Interceptor = (config: RequestConfig) => RequestConfig | Promise<RequestConfig>;
-type ResponseInterceptor = (response: Response) => Response | Promise<Response>;
+import { Interceptor, RequestConfig, ResponseInterceptor } from "@/types/api.types";
 
 class ApiClient {
   private baseURL: string;
